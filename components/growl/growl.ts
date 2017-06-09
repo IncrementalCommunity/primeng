@@ -11,7 +11,7 @@ import {DomHandler} from '../dom/domhandler';
                 [ngClass]="{'ui-growl-message-info':msg.severity == 'info','ui-growl-message-warn':msg.severity == 'warn',
                     'ui-growl-message-error':msg.severity == 'error','ui-growl-message-success':msg.severity == 'success'}">
                 <div class="ui-growl-item">
-                     <div class="ui-growl-icon-close fa fa-close" (click)="remove(i,msgel)"></div>
+                     <div *ngIf="closeable" class="ui-growl-icon-close fa fa-close" (click)="remove(i,msgel)"></div>
                      <span class="ui-growl-image fa fa-2x"
                         [ngClass]="{'fa-info-circle':msg.severity == 'info','fa-exclamation-circle':msg.severity == 'warn',
                                 'fa-close':msg.severity == 'error','fa-check':msg.severity == 'success'}"></span>
@@ -28,7 +28,8 @@ import {DomHandler} from '../dom/domhandler';
 })
 export class Growl implements AfterViewInit,OnDestroy {
 
-    @Input() sticky: boolean = false;
+    @Input() sticky: boolean;
+    @Input() closeable: boolean = true;
 
     @Input() life: number = 3000;
         
